@@ -1,17 +1,13 @@
-FROM node:alpine
+FROM node:24-alpine
 
 WORKDIR /back
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm ci --only=production
 
 COPY . .
 
-ENV URL=$URL
-
 EXPOSE 3001
 
-CMD ["npm", "run","dev"] 
-
-# CMD ["npm", "run build && npm start"]
+CMD ["npm", "run","dev"]
