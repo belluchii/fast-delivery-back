@@ -73,6 +73,7 @@
     "testEnvironment": "node",
     "testMatch": [
       "**/*.test.ts"
-    ]
+    ],
+    "testTimeout": 2000
   }
 }

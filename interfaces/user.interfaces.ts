@@ -1,16 +1,16 @@
 import mongoose from 'mongoose'
 
 export interface UserInterface {
-	id: number;
-	username: string;
+	id?: number;
+	username?: string;
 	email: string;
-	profile_img: string;
+	profile_img?: string;
 	password: string;
 	name: string;
 	last_name: string;
-	salt: string;
-	is_deleted: boolean;
-	is_admin: boolean;
+	salt?: string;
+	is_deleted?: boolean;
+	is_admin?: boolean;
 	deliveryManInfo?: mongoose.Types.ObjectId;
 }
 

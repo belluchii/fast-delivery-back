@@ -1,11 +1,9 @@
 import { User as UserModel } from '../models'
 import { DeliveryMan } from '../models'
-import { UserInterface } from '../interfaces/user.interfaces'
-import { UserWithPasswordValidation } from '../interfaces/user.interfaces'
+import { UserInterface, UserWithPasswordValidation } from '../interfaces/user.interfaces'
 
 export default class User_Services {
 	private static instance: User_Services | null = null
-
 
 	static getInstance(): User_Services {
 		if (!User_Services.instance) {
@@ -39,12 +37,10 @@ export default class User_Services {
 		return user
 	}
 
-	async validateUserPassword(
-		user: UserWithPasswordValidation,
-		password: string
-	) {
+	async validateUserPassword(email: string, password: string) {
+		const user = await UserModel.findOne({ email })
+		if (!user) return false
 		const isValid = await user.validatePassword(password)
-
 		return isValid
 	}
 }

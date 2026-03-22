@@ -1,16 +1,15 @@
-version: '3.8'
 services:
   mongodb:
     image: mongo
     container_name: fast-delivery-db
     ports:
-      - '27017:27017'
+      - "27017:27017"
 
   backend:
     build: .
     container_name: fast-delivery-backend
     ports:
-      - '8080:8080'
+      - "${PORT}:${PORT}"
     environment:
       - MONGO_URL_TEST=${MONGO_URL_TEST}
       - MONGO_PASSWORD_TEST=${MONGO_PASSWORD_TEST}
