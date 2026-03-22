@@ -1,12 +1,11 @@
 import { Request, Response } from 'express'
 import asyncHandler from 'express-async-handler'
-//Services
 import DeliveryManService from '../services/deliveryMan.services'
 import { Responses } from '../services/responses'
 const deliveryManServices = DeliveryManService.getInstance()
 const responses = new Responses()
 
-export const take_package = asyncHandler(
+export const takePackage = asyncHandler(
 	async (req: Request, res: Response) => {
 		try {
 			const packagesId = req.body
@@ -16,13 +15,13 @@ export const take_package = asyncHandler(
 				await deliveryManServices.takePackage(packagesId[i], deliveryManId)
 			}
 
-			responses.success(res, 'package taked succesfully', 200)
+			responses.success(res, 'Package taken successfully', 200)
 		} catch (error) {
 			responses.error(res, error, 500)
 		}
 	}
 )
-export const mark_delivered = asyncHandler(
+export const markDelivered = asyncHandler(
 	async (req: Request, res: Response) => {
 		try {
 			const { packageId } = req.body
@@ -37,7 +36,7 @@ export const mark_delivered = asyncHandler(
 	}
 )
 
-export const mark_inactive = asyncHandler(
+export const markInactive = asyncHandler(
 	async (req: Request, res: Response) => {
 		try {
 			const { deliveryId } = req.body
@@ -52,7 +51,7 @@ export const mark_inactive = asyncHandler(
 	}
 )
 
-export const get_taked_packages = asyncHandler(
+export const getTakedPackages = asyncHandler(
 	async (req: Request, res: Response) => {
 		try {
 			const deliveryManId = req.user.deliveryManInfo?.toString() || ''
@@ -67,20 +66,20 @@ export const get_taked_packages = asyncHandler(
 	}
 )
 
-export const untake_package = asyncHandler(
+export const untakePackage = asyncHandler(
 	async (req: Request, res: Response) => {
 		try {
 			const deliveryManId = req.user.deliveryManInfo?.toString() || ''
 			const { packageId } = req.params
 			await deliveryManServices.untakePackage(deliveryManId, packageId)
-			responses.success(res, 'package untaked succesfully', 200)
+			responses.success(res, 'Package untaked successfully', 200)
 		} catch (error) {
 			responses.error(res, error, 500)
 		}
 	}
 )
 
-export const get_all_deliverymans = asyncHandler(
+export const getAllDeliverymans = asyncHandler(
 	async (req: Request, res: Response) => {
 		try {
 			const result = await deliveryManServices.getAllDeliverymans()
@@ -91,7 +90,7 @@ export const get_all_deliverymans = asyncHandler(
 	}
 )
 
-export const get_one_deliveryman = asyncHandler(
+export const getOneDeliveryman = asyncHandler(
 	async (req: Request, res: Response) => {
 		try {
 			const deliveryManId = req.user.deliveryManInfo?.toString() || ''
@@ -105,7 +104,7 @@ export const get_one_deliveryman = asyncHandler(
 	}
 )
 
-export const get_deli_by_id = asyncHandler(
+export const getDeliById = asyncHandler(
 	async (req: Request, res: Response) => {
 		try {
 			const { deliveryId } = req.params

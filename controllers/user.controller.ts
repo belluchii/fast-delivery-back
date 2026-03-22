@@ -10,7 +10,6 @@ import User_Services from '../services/user.services'
 import {
 	UserInterface,
 	UserPayload,
-	UserWithPasswordValidation,
 } from '../interfaces/user.interfaces'
 
 const responses = new Responses()
@@ -33,7 +32,7 @@ const signup = asyncHandler(async (req: Request, res: Response) => {
 
 const login = asyncHandler(async (req: Request, res: Response) => {
 	try {
-		const { email, password }: UserWithPasswordValidation = req.body
+		const { email, password } = req.body
 
 		const user = await user_service.findByUserEmail(email)
 
@@ -42,7 +41,7 @@ const login = asyncHandler(async (req: Request, res: Response) => {
 			return
 		}
 
-		const isValid = await user_service.validateUserPassword(user, password)
+		const isValid = await user_service.validateUserPassword(email, password)
 
 		if (!isValid) {
 			responses.error(res, 'Invalid username or password', 401)
@@ -50,12 +49,12 @@ const login = asyncHandler(async (req: Request, res: Response) => {
 		}
 
 		const payload: UserPayload = {
-			id: user.id,
-			name: user.name,
-			profile_img: user.profile_img,
+			id: user.id!,
+			name: user.name!,
+			profile_img: user.profile_img!,
 			email: user.email,
-			is_admin: user.is_admin,
-			is_deleted: user.is_deleted,
+			is_admin: user.is_admin!,
+			is_deleted: user.is_deleted!,
 			deliveryManInfo: user.deliveryManInfo,
 		}
 
@@ -68,14 +67,14 @@ const login = asyncHandler(async (req: Request, res: Response) => {
 	}
 })
 
-const update_info = asyncHandler(async (req: Request, res: Response) => {
+const updateInfo = asyncHandler(async (req: Request, res: Response) => {
 	try {
 		const { userId } = req.params
 		const { newData } = req.body 
 		const user = await user_service.findById(userId)
 
 		if (!user) {
-			responses.error(res, 'Usuario no encontrado', 404)
+			responses.error(res, 'User not found', 404)
 			return
 		}
 
@@ -88,11 +87,11 @@ const update_info = asyncHandler(async (req: Request, res: Response) => {
 
 		responses.success(
 			res,
-			'Información del usuario actualizada exitosamente',
+			'User information updated successfully',
 			200
 		)
 	} catch (error) {
-		responses.error(res, 'Login error', 500)
+		responses.error(res, 'Update info error', 500)
 	}
 })
 const getUser = asyncHandler(async (req: Request, res: Response) => {
@@ -101,13 +100,13 @@ const getUser = asyncHandler(async (req: Request, res: Response) => {
 		const user = await user_service.findById(userId)
 
 		if (!user) {
-			responses.error(res, 'Usuario no encontrado', 404)
+			responses.error(res, 'User not found', 404)
 			return
 		}
 
 		res.status(200).send(user)
 	} catch (error) {
-		responses.error(res, 'get user error', 500)
+		responses.error(res, 'Get user error', 500)
 	}
 })
 const logout = asyncHandler(async (req: Request, res: Response) => {
@@ -124,16 +123,16 @@ const logout = asyncHandler(async (req: Request, res: Response) => {
 	}
 })
 
-const hola = asyncHandler(async (req: Request, res: Response) => {
+const testAuth = asyncHandler(async (req: Request, res: Response) => {
 	try {
 		if (!req.user) {
-			responses.error(res, 'User is not AUTENTICADO', 401)
+			responses.error(res, 'User is not authenticated', 401)
 		}
 
-		responses.success(res, 'HOLA , ESTAS AUTENTICADO', 200)
+		responses.success(res, 'AUTHENTICATION SUCCESSFUL', 200)
 	} catch (error) {
-		responses.error(res, 'HOLA error', 500)
+		responses.error(res, 'Test auth error', 500)
 	}
 })
 
-export { login, signup, logout, hola, update_info, getUser}
+export { login, signup, logout, testAuth, updateInfo, getUser}

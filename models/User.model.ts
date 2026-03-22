@@ -6,13 +6,13 @@ import { UserWithPasswordValidation } from '../interfaces/user.interfaces'
 const User = new mongoose.Schema({
 	email: {
 		type: String,
-		required: [true, 'enter an email'],
+		required: [true, 'Email is required'],
 		unique: true,
-		validate: [validator.isEmail, 'enter an valid email'],
+		validate: [validator.isEmail, 'Enter a valid email'],
 	},
 	password: {
 		type: String,
-		required: [true, 'enter a password'],
+		required: [true, 'Password is required'],
 		validate: [
 			(str: string) => {
 				validator.isStrongPassword(str, {
@@ -23,7 +23,7 @@ const User = new mongoose.Schema({
 					returnScore: false,
 				})
 			},
-			'The password must have 8 characters and 1 capital letter',
+			'Password must have 8 characters and 1 capital letter',
 		],
 	},
 	salt: {
@@ -31,11 +31,11 @@ const User = new mongoose.Schema({
 	},
 	name: {
 		type: String,
-		required: [true, 'enter yor name'],
+		required: [true, 'Name is required'],
 	},
 	last_name: {
 		type: String,
-		required: [true, 'enter your lastname'],
+		required: [true, 'Last name is required'],
 	},
 	profile_img: {
 		type: String,

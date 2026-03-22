@@ -4,8 +4,8 @@ const options = {
 	definition: {
 		openapi: '3.1.0',
 		info: {
-			title: 'API De Fast Delivery',
-			description: 'Esta API se encarga de manejar los datos de Fast delivery',
+			title: 'Fast Delivery API',
+			description: 'This API handles Fast delivery data',
 			version: '1.12.0',
 		},
 	},
