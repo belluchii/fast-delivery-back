@@ -8,7 +8,8 @@
     "dev": "nodemon --exec ts-node --files server.ts",
     "lint": "eslint .",
     "test": "cross-env NODE-ENV=test jest --verbose",
-    "build": "tsc --outDir ./dist"
+    "build": "tsc --outDir ./dist",
+    "deploy": "npm run build && sls deploy"
   },
   "author": "golfito red",
   "license": "ISC",
@@ -22,6 +23,8 @@
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.0",
+    "serverless": "^4.33.0",
+    "serverless-http": "^4.0.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
     "typescript": "^5.7.0",

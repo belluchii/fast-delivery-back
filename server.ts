@@ -37,9 +37,11 @@ server.use(
 	swaggerUi.setup(swaggerJSDoc(swaggerConfig)),
 )
 
-connectDB()
-server.listen(Number(process.env.PORT) || 4200, '0.0.0.0', async () => {
-	console.log('listening')
-})
+if (process.env.NODE_ENV !== 'lambda') {
+	connectDB()
+	server.listen(Number(process.env.PORT) || 4200, '0.0.0.0', async () => {
+		console.log('listening')
+	})
+}
 
 export default server
