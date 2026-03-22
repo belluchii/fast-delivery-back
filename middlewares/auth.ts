@@ -1,10 +1,9 @@
 import { Request, Response, NextFunction } from 'express'
 import { validateToken } from '../config/tokens'
-import { Responses } from '../services/responses'
 import { UserInterface } from '../interfaces/user.interfaces'
-const response = new Responses()
 
 declare global {
+	// eslint-disable-next-line @typescript-eslint/no-namespace
 	namespace Express {
 		interface Request {
 			user: UserInterface;

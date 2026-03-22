@@ -1,6 +1,6 @@
 components:
   schemas:
-    User:
+    userSchema:
       type: object
       properties:
         email:
@@ -33,4 +33,3 @@ components:
           default: false
         token:
           type: object
-

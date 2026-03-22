@@ -4,8 +4,6 @@ import UserModel from '../../models/User.model'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 dotenv.config()
-const mongo_url = process.env.MONGO_URL_TEST!
-
 
 const newUserData: any = {
 	email: '1234@test.com',

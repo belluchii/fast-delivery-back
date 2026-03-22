@@ -15,52 +15,36 @@ export default class User_Services {
 	}
 
 	async createUser(userData: UserInterface) {
-		try {
-			const createdUser = await UserModel.create(userData)
+		const createdUser = await UserModel.create(userData)
 
-			if (!createdUser.is_admin) {
-				const newDeliveryMan = new DeliveryMan()
+		if (!createdUser.is_admin) {
+			const newDeliveryMan = new DeliveryMan()
 
-				await newDeliveryMan.save()
+			await newDeliveryMan.save()
 
-				createdUser.deliveryManInfo = newDeliveryMan._id
-			}
-			await createdUser.save()
-		} catch (error) {
-			throw error
+			createdUser.deliveryManInfo = newDeliveryMan._id
 		}
+		await createdUser.save()
 	}
 
 	async findByUserEmail(email: string) {
-		try {
-			const user: UserWithPasswordValidation | null = await UserModel.findOne({
-				email,
-			})
-			return user
-		} catch (error) {
-			throw error
-		}
+		const user: UserWithPasswordValidation | null = await UserModel.findOne({
+			email,
+		})
+		return user
 	}
 
 	async findById(id: string) {
-		try {
-			const user = await UserModel.findById(id)
-			return user
-		} catch (error) {
-			throw error
-		}
+		const user = await UserModel.findById(id)
+		return user
 	}
 
 	async validateUserPassword(
 		user: UserWithPasswordValidation,
 		password: string
 	) {
-		try {
-			const isValid = await user.validatePassword(password)
+		const isValid = await user.validatePassword(password)
 
-			return isValid
-		} catch (error) {
-			throw error
-		}
+		return isValid
 	}
 }

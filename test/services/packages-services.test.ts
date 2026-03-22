@@ -4,7 +4,6 @@ import { PackageInterface } from '../../interfaces/package.interfaces'
 import { PackagesServices } from '../../services/packages.services'
 import PackageModel from '../../models/Package.model'
 dotenv.config()
-const mongo_url = process.env.MONGO_URL_TEST!
 
 describe('packages_services', () => {
 	beforeAll(async () => {
