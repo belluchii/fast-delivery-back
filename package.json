@@ -1,6 +1,6 @@
 {
   "name": "fast-delivery-back",
-  "version": "1.17.5",
+  "version": "1.17.6",
   "description": "fast-delivery-back",
   "main": "dist/server",
   "scripts": {
