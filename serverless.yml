@@ -24,3 +24,21 @@ functions:
     handler: dist/handler.handler
     events:
       - httpApi: '*'
+
+package:
+  individually: false
+  patterns:
+    - '!node_modules/.cache/**'
+    - '!node_modules/aws-sdk/**'
+    - '!test/**'
+    - '!.git/**'
+    - '!README.md'
+    - '!*.test.js'
+    - '!coverage/**'
+    - '!src/**'
+    - '!*.test.ts'
+    - '!jest.config.*'
+    - '!tsconfig*.json'
+    - '!nodemon.json'
+    - '!.eslintrc*'
+    - '!.github/**'
