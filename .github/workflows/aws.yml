@@ -27,6 +27,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Clean serverless state
+        run: rm -rf .serverless
+
       - name: Deploy to AWS Lambda
         run: npx serverless@3.38.0 deploy
         env:
