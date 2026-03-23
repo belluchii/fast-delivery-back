@@ -12,7 +12,6 @@ services:
       - "${PORT}:${PORT}"
     environment:
       - CORS_URL=${CORS_URL}
-      - MONGO_URL_TEST=${MONGO_URL_TEST}
       - URL=${URL}
     depends_on:
       - mongodb

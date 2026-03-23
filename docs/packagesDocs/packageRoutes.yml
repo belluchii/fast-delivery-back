@@ -48,7 +48,6 @@
         description: The ID of the package to delete.
         schema:
           type: string
-        example: 64fb75ea569e606bc40576e8
     responses:
       "200":
         description: Package delete successfully. No content is returned.
@@ -76,7 +75,6 @@
         description: The ID of the package to edit.
         schema:
           type: string
-        example: 64fb75ea569e606bc40576e8
     requestBody:
       description: JSON object containing package details to be updated.You can specify only the data you want to edit.
       required: true
@@ -138,7 +136,6 @@
         description: The ID of the package to get.
         schema:
           type: string
-        example: 64fb775bc0056d3359578e38
     responses:
       "200":
         description: Get package successfully. Returns package by id.
