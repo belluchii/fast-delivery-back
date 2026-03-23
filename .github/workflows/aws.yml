@@ -26,7 +26,7 @@ jobs:
         run: npm run build
 
       - name: Deploy to AWS Lambda
-        uses: serverless/github-action@latest
+        uses: serverless/github-action@v3
         with:
           args: deploy
         env:
