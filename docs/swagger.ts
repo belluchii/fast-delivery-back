@@ -1,5 +1,9 @@
 import path from 'path'
 
+const baseDir = process.env.LAMBDA_TASK_ROOT 
+  ? path.join(process.env.LAMBDA_TASK_ROOT, 'docs')
+  : path.resolve(__dirname, '../docs')
+
 const options = {
 	definition: {
 		openapi: '3.1.0',
@@ -16,12 +20,12 @@ const options = {
 	],
 	basePath: '/api',
 	apis: [
-		path.resolve(__dirname, './deliverymanDocs/deliverymanRoutes.yml'),
-		path.resolve(__dirname, './deliverymanDocs/deliverymanSchema.yml'),
-		path.resolve(__dirname, './packagesDocs/packageRoutes.yml'),
-		path.resolve(__dirname, './packagesDocs/packageSchema.yml'),
-		path.resolve(__dirname, './userDocs/userRoutes.yml'),
-		path.resolve(__dirname, './userDocs/userSchema.yml')
+		path.resolve(baseDir, './deliverymanDocs/deliverymanRoutes.yml'),
+		path.resolve(baseDir, './deliverymanDocs/deliverymanSchema.yml'),
+		path.resolve(baseDir, './packagesDocs/packageRoutes.yml'),
+		path.resolve(baseDir, './packagesDocs/packageSchema.yml'),
+		path.resolve(baseDir, './userDocs/userRoutes.yml'),
+		path.resolve(baseDir, './userDocs/userSchema.yml')
 	],
 }
 

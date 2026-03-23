@@ -42,3 +42,5 @@ package:
     - '!nodemon.json'
     - '!.eslintrc*'
     - '!.github/**'
+    - 'docs/**'
+    - '!docs/**/*.ts'
