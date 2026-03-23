@@ -1,4 +1,4 @@
-name: CI/CD with Docker and Lightsail
+name: Deploy to AWS Lambda
 
 on:
   push:
@@ -6,36 +6,34 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: ubuntu-20.04
+  deploy:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Docker
-        uses: docker/setup-docker@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          docker-version: 24.0.6
+          node-version: "24.x"
+          cache: "npm"
 
-      - name: Build Docker Image
-        run: |
-          docker build -t back-backend:latest .
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker tag back-backend:latest ${{ secrets.DOCKER_USERNAME }}/fast-delivery-back:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/fast-delivery-back:latest
+      - name: Install dependencies
+        run: npm ci
 
-  deploy:
-    runs-on: ubuntu-latest
+      - name: Build
+        run: npm run build
 
-    steps:
-      - name: Set up Docker
-        uses: docker/setup-docker@v2
+      - name: Deploy to AWS Lambda
+        uses: serverless/github-action@latest
         with:
-          docker-version: 24.0.6
-
-      - name: Deploy to Lightsail
-        run: |
-          docker pull ${{ secrets.DOCKER_USERNAME }}/fast-delivery-back:latest
-          docker-compose build
-          docker-compose up
+          args: deploy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          NODE_ENV: lambda
+          CORS_URL: ${{ secrets.CORS_URL }}
+          URL: ${{ secrets.MONGODB_URI }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          JWT_REFRESH_SECRET: ${{ secrets.JWT_REFRESH_SECRET }}
