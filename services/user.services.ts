@@ -39,7 +39,9 @@ export default class User_Services {
 
 	async validateUserPassword(email: string, password: string) {
 		const user = await UserModel.findOne({ email })
-		if (!user) return false
+		if (!user) {
+			throw new Error('User not found')
+		}
 		const isValid = await user.validatePassword(password)
 		return isValid
 	}

@@ -32,12 +32,18 @@ export class PackagesServices {
 	async deletePackage(id: string) {
 		const deletedPackage = await Package.findByIdAndDelete(id)
 		if (!deletedPackage) {
-			console.log('Package not found')
+			return null
 		}
+		return deletedPackage
 	}
 
 	async editPackage(id: string, updatedData: PackageInterface) {
-		const updatedPackage = await Package.findByIdAndUpdate(id, updatedData)
+		const updatedPackage = await Package.findByIdAndUpdate(id, updatedData, {
+			new: true,
+		})
+		if (!updatedPackage) {
+			return null
+		}
 		return updatedPackage
 	}
 
