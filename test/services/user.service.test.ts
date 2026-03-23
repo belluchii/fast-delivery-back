@@ -135,7 +135,7 @@ describe('User_Services', () => {
 			name: 'Test',
 			last_name: 'User',
 		}
-		const createdUser = await userServices.createUser(newUserData)
+		await userServices.createUser(newUserData)
 
 		const storedUser = await UserModel.findOne({ email: newUserData.email })
 		expect(storedUser?.password).not.toBe(newUserData.password)
