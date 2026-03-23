@@ -24,6 +24,3 @@ functions:
     handler: dist/handler.handler
     events:
       - httpApi: '*'
-
-plugins:
-  - serverless-offline
