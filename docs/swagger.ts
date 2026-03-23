@@ -1,8 +1,8 @@
 import path from 'path'
 
 const baseDir = process.env.LAMBDA_TASK_ROOT 
-  ? path.join(process.env.LAMBDA_TASK_ROOT, 'docs')
-  : path.resolve(__dirname, '../docs')
+	? path.join(process.env.LAMBDA_TASK_ROOT, 'docs')
+	: path.resolve(__dirname, '../docs')
 
 const options = {
 	definition: {
