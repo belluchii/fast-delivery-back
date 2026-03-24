@@ -37,7 +37,7 @@ const login = asyncHandler(async (req: Request, res: Response) => {
 		const user = await user_service.findByUserEmail(email)
 
 		if (!user) {
-			responses.error(res, 'Invalid username or password', 404)
+			responses.error(res, 'Invalid username or password', 401)
 			return
 		}
 
